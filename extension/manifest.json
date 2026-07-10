@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Web Clipper - 智能抓取",
+  "version": "1.1.0",
+  "description": "一键抓取网页正文保存为 Markdown，支持公众号/博客/新闻等任意网页",
+  "permissions": [
+    "activeTab",
+    "contextMenus",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "智能抓取网页内容"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
