@@ -1,0 +1,49 @@
+﻿# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Runtime data (user-specific)
+.offline-importer-v2/
+saved/
+*.db
+
+# Test files
+test-*.html
+test_*.py
+test-*.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Node
+node_modules/
+package-lock.json
+
+# Virtual environment
+venv/
+env/
+.env
+
+# Chrome extension packaging
+*.crx
+*.zip
+*.pem
