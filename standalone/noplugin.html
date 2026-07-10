@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能抓取工具</title>
+<style>
+:root {
+  --bg: #0f1419; --card: #1a1f26; --border: #2f3640;
+  --text: #e6e6e6; --text-dim: #8b949e;
+  --accent: #58a6ff; --green: #3fb950; --orange: #d29922;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg); color: var(--text); min-height: 100vh; padding: 24px;
+}
+.container { max-width: 700px; margin: 0 auto; }
+.header {
+  text-align: center; margin-bottom: 24px; padding: 20px;
+  background: linear-gradient(135deg, var(--card) 0%, #1e2530 100%);
+  border-radius: 12px; border: 1px solid var(--border);
+}
+.header h1 { font-size: 22px; margin-bottom: 6px; }
+.header p { color: var(--text-dim); font-size: 13px; }
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px; margin-bottom: 14px;
+}
+.card-title {
+  font-size: 14px; font-weight: 600; margin-bottom: 14px;
+}
+.hint {
+  padding: 12px; border-radius: 8px; font-size: 12px;
+  background: rgba(88, 166, 255, 0.1); border-left: 3px solid var(--accent);
+  color: var(--text-dim); line-height: 1.6;
+}
+.hint strong { color: var(--text); }
+.hint code {
+  background: var(--bg); padding: 2px 6px; border-radius: 4px;
+  color: var(--green); font-family: Consolas, Monaco, monospace;
+}
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.bookmark-btn {
+  display: inline-block; padding: 12px 20px;
+  background: var(--accent); color: #000;
+  border-radius: 8px; font-size: 14px; font-weight: 600;
+  cursor: pointer; text-decoration: none;
+}
+.bookmark-btn:hover { filter: brightness(1.1); }
+.btn {
+  padding: 10px 18px; border: none; border-radius: 8px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  text-decoration: none; color: inherit;
+}
+.btn-secondary { background: var(--border); color: var(--text); }
+.btn-secondary:hover { background: #3a4150; }
+.save-path-box {
+  padding: 10px; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 6px; font-size: 12px; margin-top: 8px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>📥 智能抓取工具</h1>
+    <p>单文件零依赖 · 书签栏一键抓取网页正文</p>
+  </div>
+
+  <!-- 书签 -->
+  <div class="card">
+    <div class="card-title">🔖 智能抓取书签</div>
+    <div class="hint" style="margin-bottom:14px">
+      <strong>使用方法：</strong><br>
+      1. 按 <code>Ctrl+Shift+B</code>（Mac: <code>Cmd+Shift+B</code>）显示书签栏<br>
+      2. 把下方「📥 智能抓取」按钮<strong>拖到</strong>书签栏<br>
+      3. 打开任意网页（公众号/B站/X/YouTube/博客/新闻）<br>
+      4. 点书签栏的「📥 智能抓取」→ 文件自动下载<br><br>
+      <strong>Chrome 拖拽失效？</strong>点「📋 复制代码」→ 右键书签栏 → 添加页面 → URL 粘贴代码 → 保存
+    </div>
+    <div class="btn-row">
+      <a class="bookmark-btn" href="javascript:(function(){var sels=['#js_content','.rich_media_content','article','main','.post-content','.article-content','.entry-content','#content','.content','.article-body'];var el=null;for(var i=0;i<sels.length;i++){var e=document.querySelector(sels[i]);if(e&&e.textContent.trim().length>80){el=e;break}}if(!el)el=document.body;var tEl=document.querySelector('#activity-name')||document.querySelector('.rich_media_title');var t=tEl?tEl.textContent.trim():document.title||location.hostname;var cl=el.cloneNode(true);cl.querySelectorAll('script,style,img,nav,header,footer,aside,iframe,form,button,svg,noscript,.ad,.sidebar,.comment,.share,.related,.recommend,.qr_code_pc,.reward_area,.rich_media_tool,[class*=comment],[class*=recommend],[class*=advert],[class*=sidebar],[class*=footer],[class*=header]').forEach(function(e){e.remove()});var body='';function walk(n){n.childNodes.forEach(function(x){if(x.nodeType===3){var tx=x.textContent.replace(/\s+/g,' ');if(tx.trim())body+=tx}else if(x.nodeType===1){var tg=x.tagName.toLowerCase();if(['h1','h2','h3','h4','h5','h6'].indexOf(tg)>-1){body+='\n\n'+'#'.repeat(parseInt(tg[1]))+' '+x.textContent.trim()+'\n\n'}else if(tg==='p'){walk(x);body+='\n\n'}else if(tg==='pre'){body+='\n```\n'+x.textContent+'\n```\n\n'}else if(tg==='blockquote'){body+='\n> '+x.textContent.replace(/\n/g,'\n> ')+'\n\n'}else if(tg==='br'){body+='\n'}else if(tg==='ul'||tg==='ol'){x.querySelectorAll(':scope>li').forEach(function(li){body+='\n- '+li.textContent.trim()});body+='\n\n'}else if(['div','section','article','span','figure','main'].indexOf(tg)>-1){walk(x)}}})}walk(cl);body=body.replace(/\n{3,}/g,'\n\n').trim();var md='---\ntitle: '+t+'\nsource: '+location.href+'\ndomain: '+location.hostname+'\nimported: '+new Date().toISOString()+'\n---\n\n# '+t+'\n\n'+body;var s='imported_'+t.replace(/[^a-zA-Z0-9_一-龥]/g,'_').slice(0,50);try{var b=new Blob([md],{type:'text/markdown;charset=utf-8'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download=s+'.md';a.style.display='none';document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(u)},1000)}catch(e){try{navigator.clipboard.writeText(md)}catch(e2){}alert('下载失败，内容已复制到剪贴板，请手动粘贴保存')}})();">📥 智能抓取</a>
+      <button class="btn btn-secondary" onclick="copyCode(this)">📋 复制代码</button>
+    </div>
+    <div style="font-size:11px;color:var(--text-dim);margin-top:10px;line-height:1.6">
+      适用于任意网页（公众号、B站、X、YouTube、博客、新闻等）<br>
+      抓取内容：标题 + 正文文字（自动保留段落格式，去除图片/导航/广告/相关推荐）
+    </div>
+  </div>
+
+  <!-- 文件保存位置 -->
+  <div class="card">
+    <div class="card-title">📁 文件保存位置</div>
+    <div class="hint">
+      文件下载到<strong>浏览器下载目录</strong>，文件名以 <code>imported_</code> 开头便于查找。
+    </div>
+    <div class="save-path-box">
+      <strong>查看方法：</strong>
+      <div style="margin-top:4px">浏览器按 <code>Ctrl+J</code>（Mac: <code>Cmd+Shift+J</code>）打开下载记录</div>
+      <div style="margin-top:6px;font-size:11px;color:var(--text-dim)">
+        常见下载位置：Win <code>C:\Users\用户名\Downloads\</code>，Mac <code>~/Downloads/</code><br>
+        如位置被改过，请到浏览器设置里查看实际路径
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+async function copyCode(btn) {
+  const link = btn.previousElementSibling;
+  const code = link.getAttribute('href');
+  try {
+    await navigator.clipboard.writeText(code);
+    btn.textContent = '✓ 已复制';
+    setTimeout(() => { btn.textContent = '📋 复制代码'; }, 2000);
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = code;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = '✓ 已复制';
+    setTimeout(() => { btn.textContent = '📋 复制代码'; }, 2000);
+  }
+}
+</script>
+</body>
+</html>
